@@ -1,7 +1,12 @@
 package com.example.movieapps.data.moviedbapi.datasource
 
+import MoviePagingSource
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.movieapps.data.moviedbapi.MovieDbService
 import com.example.movieapps.data.moviedbapi.response.GenreCollection
+import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
 import com.example.movieapps.utils.UiState
 import kotlinx.coroutines.Dispatchers
@@ -13,11 +18,11 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class ListMovieDataSourceImpl @Inject constructor(
-    private val service: MovieDbService
+    private val movieService: MovieDbService
 ) : ListMovieDataSource {
     override suspend fun getMovieGenre(): Flow<UiState<Response<GenreCollection>>> = flow {
         UiState.Loading
-        val response = service.getGenreList()
+        val response = movieService.getGenreList()
         if (response.isSuccessful) {
             emit(UiState.Success(response))
         } else {
@@ -27,9 +32,25 @@ class ListMovieDataSourceImpl @Inject constructor(
         emit(UiState.Error(it.message ?: "unrecognized error"))
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getMovieListByGenre(id:Int): Flow<UiState<Response<MovieListReqResponse>>> = flow {
+    override suspend fun getMovieListByGenreWithPaging(
+        genreId: Int
+    ): Flow<PagingData<MovieItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource(movieService, genreId)
+            }
+        ).flow
+    }
+
+    override suspend fun getMovieListByGenre(
+        genreId: Int
+    ): Flow<UiState<Response<MovieListReqResponse>>> = flow {
         UiState.Loading
-        val response = service.getMovieListByGenre(genreId = id)
+        val response = movieService.getMovieListByGenre(genreId = genreId)
         if (response.isSuccessful) {
             emit(UiState.Success(response))
         } else {
@@ -38,7 +59,6 @@ class ListMovieDataSourceImpl @Inject constructor(
     }.catch {
         emit(UiState.Error(it.message ?: "unrecognized error"))
     }.flowOn(Dispatchers.IO)
-
 
 
 }

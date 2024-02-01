@@ -28,7 +28,7 @@ class DashboardFragmentViewModel @Inject constructor(
     private val _genreList = MutableLiveData<GenreCollection>()
     val genreList:LiveData<GenreCollection> = _genreList
 
-    private var _movieList : MutableList<MutableLiveData<MovieListReqResponse>> = mutableListOf()
+    var _movieList : MutableList<MutableLiveData<MovieListReqResponse>> = mutableListOf()
     var movieList: List<LiveData<MovieListReqResponse>> = _movieList
 
 
@@ -82,12 +82,13 @@ class DashboardFragmentViewModel @Inject constructor(
     }
 
     private fun setUpMovielistLiveData(list: List<GenresItem?>){
-        for (genre in 0..1){
+        for (genre in list){
             _movieList.add(MutableLiveData<MovieListReqResponse>())
 
         }
     }
     override fun resetLiveData() {
         _genreList.postValue(GenreCollection())
+        _movieList.clear()
     }
 }

@@ -12,6 +12,7 @@ import com.example.movieapps.data.moviedbapi.response.GenresItem
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.databinding.FragmentMovieSelectionBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class DashboardFragment:BaseFragment<FragmentMovieSelectionBinding>() {
@@ -71,6 +72,7 @@ class DashboardFragment:BaseFragment<FragmentMovieSelectionBinding>() {
         adapter=DashboardMovieAdapter(requireContext(),list){
             val bundle= bundleOf("genreId" to it)
             val action = DashboardFragmentDirections.actionDashboardFragmentToSpecificMovieFragment().actionId
+            viewModel.resetLiveData()
             findNavController().navigate(action,bundle)
         }
         binding.rvMovieDashboard.adapter  = adapter

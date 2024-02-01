@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.dompekid.base.BaseFragment
 import com.example.movieapps.adapter.CategoricalMovieAdapter
+import com.example.movieapps.adapter.CategoricalPagingMovieAdapter
 import com.example.movieapps.databinding.FragmentSpecificMovieCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -40,17 +41,19 @@ class SpecificMovieFragment : BaseFragment<FragmentSpecificMovieCollectionBindin
     private fun getMovieListByGenre() {
         val genreId = getPassedGenreId()
         if (genreId != null) {
-            viewModel.fetchMovieListByGenre(genreId)
+            viewModel.fetchMoviesWithPaging(genreId)
         }
     }
 
     private fun observeMovieList() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.movieList.collectLatest {
-                    if (it?.results != null) {
-                        binding.rvMovieList.adapter =
-                            CategoricalMovieAdapter(requireContext(), it.results)
+                viewModel.movieList2.collectLatest {
+                    if (it != null) {
+                        val adapter = CategoricalPagingMovieAdapter()
+                        binding.rvMovieList.adapter = adapter
+                        adapter.submitData(it)
+
                     }
                 }
             }

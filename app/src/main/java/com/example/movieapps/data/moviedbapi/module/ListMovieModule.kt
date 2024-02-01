@@ -7,6 +7,7 @@ import com.example.movieapps.data.moviedbapi.datasource.ListMovieDataSourceImpl
 import com.example.movieapps.data.moviedbapi.repo.ListMovieRepo
 import com.example.movieapps.data.moviedbapi.repo.ListMovieRepoImpl
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreUseCase
+import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreWithPagingUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +38,10 @@ object ListMovieModule {
     @Provides
     fun provideGetMovieListByGenreUseCase(repo: ListMovieRepo): GetMovieListByGenreUseCase{
         return GetMovieListByGenreUseCase(repo)
+    }
+    @Singleton
+    @Provides
+    fun provideGetMovieListByGenreWithPagingUseCase(repo: ListMovieRepo): GetMovieListByGenreWithPagingUseCase{
+        return GetMovieListByGenreWithPagingUseCase(repo)
     }
 }

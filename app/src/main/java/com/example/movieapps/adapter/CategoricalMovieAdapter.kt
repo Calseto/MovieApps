@@ -17,11 +17,14 @@ class CategoricalMovieAdapter(
     inner class CategoricalViewHolder(private val itemBinding: ItemMovieCoverBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(model: MovieItem?) {
-            Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500"+model?.posterPath)
-                .centerCrop()
-                .into(itemBinding.ivMovieCover)
-            itemBinding.tvMovieTitle.text=model?.title
+            if(data.isNotEmpty()) {
+                Glide.with(context)
+                    .load("https://image.tmdb.org/t/p/w500" + model?.posterPath)
+                    .centerCrop()
+                    .into(itemBinding.ivMovieCover)
+                itemBinding.tvMovieTitle.text = model?.title
+            }
+
         }
     }
 

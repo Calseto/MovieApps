@@ -48,6 +48,8 @@ android {
 
 dependencies {
 
+    //Paging 3
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
     //Material Design
     implementation ("com.google.android.material:material:1.11.0")
     //jsonparser

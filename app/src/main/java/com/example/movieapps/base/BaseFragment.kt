@@ -35,34 +35,34 @@ abstract class BaseFragment<T:ViewBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    protected fun openLoadingFragment(loadingPage:FrameLayout) {
-        loadingPage.visibility=View.VISIBLE
-        setupFragmentTransaction(loadingPage)
-    }
-
-    protected fun closeLoadingFragment(loadingPage: FrameLayout){
-        requireActivity().supportFragmentManager.popBackStack(
-            "loading",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        Handler().postDelayed({
-            loadingPage.visibility=View.GONE
-        },500)
-    }
-
-    private fun setupFragmentTransaction(loadingPage: FrameLayout){
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                android.R.anim.fade_in,
-                android.R.anim.fade_out,
-                android.R.anim.fade_in,
-                android.R.anim.fade_out
-            )
-//            replace(loadingPage.id, loadingPageFragment)
-            addToBackStack("loading")
-            commit()
-        }
-    }
+//    protected fun openLoadingFragment(loadingPage:FrameLayout) {
+//        loadingPage.visibility=View.VISIBLE
+//        setupFragmentTransaction(loadingPage)
+//    }
+//
+//    protected fun closeLoadingFragment(loadingPage: FrameLayout){
+//        requireActivity().supportFragmentManager.popBackStack(
+//            "loading",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
+//        Handler().postDelayed({
+//            loadingPage.visibility=View.GONE
+//        },500)
+//    }
+//
+//    private fun setupFragmentTransaction(loadingPage: FrameLayout){
+//        requireActivity().supportFragmentManager.beginTransaction().apply {
+//            setCustomAnimations(
+//                android.R.anim.fade_in,
+//                android.R.anim.fade_out,
+//                android.R.anim.fade_in,
+//                android.R.anim.fade_out
+//            )
+////            replace(loadingPage.id, loadingPageFragment)
+//            addToBackStack("loading")
+//            commit()
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

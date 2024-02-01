@@ -2,7 +2,7 @@ package com.example.movieapps.data.moviedbapi.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TopRatedMovieCollection(
+data class MovieListReqResponse(
 
 	@field:SerializedName("page")
 	val page: Int? = null,
@@ -11,13 +11,13 @@ data class TopRatedMovieCollection(
 	val totalPages: Int? = null,
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null,
+	val results: List<MovieItem?>? = null,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int? = null
 )
 
-data class ResultsItem(
+data class MovieItem(
 
 	@field:SerializedName("overview")
 	val overview: String? = null,

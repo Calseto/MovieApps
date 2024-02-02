@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.databinding.ItemMovieCoverBinding
 
-class CategoricalPagingMovieAdapter  : PagingDataAdapter<MovieItem, CategoricalPagingMovieAdapter.MovieViewHolder>(MovieComparator) {
+class CategoricalPagingMovieAdapter(
+    protected val onClickNav:(id:Int)->Unit
+)  : PagingDataAdapter<MovieItem, CategoricalPagingMovieAdapter.MovieViewHolder>(MovieComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieCoverBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,20 +21,23 @@ class CategoricalPagingMovieAdapter  : PagingDataAdapter<MovieItem, CategoricalP
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val currentItem = getItem(position)
         if (currentItem != null) {
-            holder.bind(currentItem)
+            holder.bind(currentItem,onClickNav)
         }
     }
 
     class MovieViewHolder(private val binding: ItemMovieCoverBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movieItem: MovieItem) {
+        fun bind(movieItem: MovieItem,onClickNav:(id:Int)->Unit) {
             binding.apply {
                 Glide.with(itemView)
                     .load("https://image.tmdb.org/t/p/w500" + movieItem.posterPath)
                     .centerCrop()
                     .into(ivMovieCover)
                 tvMovieTitle.text = movieItem.title
+                binding.itemMovieLayout.setOnClickListener {
+                    movieItem.id?.let { it1 -> onClickNav.invoke(it1) }
+                }
             }
         }
     }

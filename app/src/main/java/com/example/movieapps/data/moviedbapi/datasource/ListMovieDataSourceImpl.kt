@@ -1,13 +1,16 @@
 package com.example.movieapps.data.moviedbapi.datasource
 
 import MoviePagingSource
+import ReviewPagingSource
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieapps.data.moviedbapi.MovieDbService
 import com.example.movieapps.data.moviedbapi.response.GenreCollection
+import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
+import com.example.movieapps.data.moviedbapi.response.ReviewItem
 import com.example.movieapps.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -59,6 +62,32 @@ class ListMovieDataSourceImpl @Inject constructor(
     }.catch {
         emit(UiState.Error(it.message ?: "unrecognized error"))
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun getMovieDetails(movieId: Int): Flow<UiState<Response<MovieDetailsResponse>>> = flow {
+        UiState.Loading
+        val response = movieService.getMovieDetails(movieId)
+        if (response.isSuccessful) {
+            emit(UiState.Success(response))
+        } else {
+            emit(UiState.Error(response.message()?:"no error message"))
+        }
+    }.catch {
+        emit(UiState.Error(it.message ?: "unrecognized error"))
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getMoviewReviews(
+        movieId: Int
+    ): Flow<PagingData<ReviewItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                ReviewPagingSource(movieService, movieId)
+            }
+        ).flow
+    }
 
 
 }

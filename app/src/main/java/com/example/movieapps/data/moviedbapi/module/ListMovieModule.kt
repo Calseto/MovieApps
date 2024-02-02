@@ -6,8 +6,10 @@ import com.example.movieapps.data.moviedbapi.datasource.ListMovieDataSource
 import com.example.movieapps.data.moviedbapi.datasource.ListMovieDataSourceImpl
 import com.example.movieapps.data.moviedbapi.repo.ListMovieRepo
 import com.example.movieapps.data.moviedbapi.repo.ListMovieRepoImpl
+import com.example.movieapps.data.moviedbapi.usecase.GetMovieDetailsUseCase
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreUseCase
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreWithPagingUseCase
+import com.example.movieapps.data.moviedbapi.usecase.GetMovieReviewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,5 +45,17 @@ object ListMovieModule {
     @Provides
     fun provideGetMovieListByGenreWithPagingUseCase(repo: ListMovieRepo): GetMovieListByGenreWithPagingUseCase{
         return GetMovieListByGenreWithPagingUseCase(repo)
+    }
+
+    @Singleton
+    @Provides
+    fun  provideGetMovieDetailsUseCase(repo: ListMovieRepo):GetMovieDetailsUseCase{
+        return GetMovieDetailsUseCase(repo)
+    }
+
+    @Singleton
+    @Provides
+    fun  provideGetMovieReviewsUseCase(repo: ListMovieRepo):GetMovieReviewsUseCase{
+        return GetMovieReviewsUseCase(repo)
     }
 }

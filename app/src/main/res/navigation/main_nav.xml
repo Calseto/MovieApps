@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_specificMovieFragment"
             app:destination="@id/specificMovieFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
     </fragment>
     <fragment
         android:id="@+id/specificMovieFragment"
@@ -19,5 +22,12 @@
         <action
             android:id="@+id/action_specificMovieFragment_to_dashboardFragment2"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_specificMovieFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.example.movieapps.presentation.detail.DetailMovieFragment"
+        android:label="DetailMovieFragment" />
 </navigation>

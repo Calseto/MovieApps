@@ -28,6 +28,7 @@ object NetworkModule {
             .readTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build()
+
     }else{
         OkHttpClient
             .Builder()

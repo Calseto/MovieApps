@@ -11,10 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieAppsActivity : AppCompatActivity() {
     lateinit var binding:ActivityMovieAppsBinding
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Log.d("TAG", "onBackPressed: ")
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMovieAppsBinding.inflate(layoutInflater)

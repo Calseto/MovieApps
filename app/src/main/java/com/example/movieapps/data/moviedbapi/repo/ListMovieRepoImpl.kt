@@ -7,6 +7,7 @@ import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
 import com.example.movieapps.data.moviedbapi.response.ReviewItem
+import com.example.movieapps.data.moviedbapi.response.TrailerResponse
 import com.example.movieapps.utils.UiState
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
@@ -23,6 +24,8 @@ class ListMovieRepoImpl @Inject constructor(private val listMovieDataSource: Lis
     override suspend fun getMoviewReviews(
         movieId: Int
     ): Flow<PagingData<ReviewItem>> =listMovieDataSource.getMoviewReviews(movieId = movieId)
+
+    override suspend fun getMovieTrailer(movieId: Int): Flow<UiState<Response<TrailerResponse>>> = listMovieDataSource.getMovieTrailer(movieId)
 
 
 }

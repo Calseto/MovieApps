@@ -10,6 +10,7 @@ import com.example.movieapps.data.moviedbapi.usecase.GetMovieDetailsUseCase
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreUseCase
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieListByGenreWithPagingUseCase
 import com.example.movieapps.data.moviedbapi.usecase.GetMovieReviewsUseCase
+import com.example.movieapps.data.moviedbapi.usecase.GetMovieTraileruseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,4 +59,10 @@ object ListMovieModule {
     fun  provideGetMovieReviewsUseCase(repo: ListMovieRepo):GetMovieReviewsUseCase{
         return GetMovieReviewsUseCase(repo)
     }
+    @Singleton
+    @Provides
+    fun  provideGetMovieTrailerUseCase(repo: ListMovieRepo):GetMovieTraileruseCase{
+        return GetMovieTraileruseCase(repo)
+    }
+
 }

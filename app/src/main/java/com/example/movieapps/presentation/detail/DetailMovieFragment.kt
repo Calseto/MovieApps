@@ -34,6 +34,7 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
         val id:Int? = arguments?.getInt("movieId")
         if (id!=null) {
             viewModel.fetchMovieDetails(id)
+            viewModel.fetchMovieReviews(id)
         }
 
     }
@@ -81,7 +82,7 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
     private fun setupTabLayout(movieDetail:MovieDetailsResponse){
         val viewPager: ViewPager2 = binding.detailsComponentBottom.viewPagerWallet
         val tabLayout: TabLayout = binding.detailsComponentBottom.tabNavWallet
-        val adapter = MovieDetailsTabAdapter(requireActivity(), movieDetail)
+        val adapter = MovieDetailsTabAdapter(requireActivity(),viewModel, movieDetail)
         viewPager.adapter = adapter
 
         // Connect TabLayout with ViewPager

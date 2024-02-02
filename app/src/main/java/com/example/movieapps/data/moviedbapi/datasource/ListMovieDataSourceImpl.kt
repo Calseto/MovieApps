@@ -11,6 +11,7 @@ import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
 import com.example.movieapps.data.moviedbapi.response.ReviewItem
+import com.example.movieapps.data.moviedbapi.response.TrailerResponse
 import com.example.movieapps.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -88,6 +89,19 @@ class ListMovieDataSourceImpl @Inject constructor(
             }
         ).flow
     }
+
+    override suspend fun getMovieTrailer(movieId: Int): Flow<UiState<Response<TrailerResponse>>> = flow {
+        UiState.Loading
+        val response = movieService.getVideosById(movieId)
+        if (response.isSuccessful) {
+            emit(UiState.Success(response))
+        } else {
+            emit(UiState.Error(response.message()?:"no error message"))
+        }
+    }.catch {
+        emit(UiState.Error(it.message ?: "unrecognized error"))
+    }.flowOn(Dispatchers.IO)
+
 
 
 }

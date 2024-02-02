@@ -4,6 +4,7 @@ import com.example.movieapps.data.moviedbapi.response.GenreCollection
 import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
 import com.example.movieapps.data.moviedbapi.response.ReviewResponse
+import com.example.movieapps.data.moviedbapi.response.TrailerResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -35,13 +36,14 @@ interface MovieDbService {
     @GET("movie/{id}/reviews")
     suspend fun getMovieReviews(
         @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String = "66855d97b40d5c979c158598e4900477",
         @Query("page") page: Int = 1
     ): Response<ReviewResponse>
-//
-//    @GET("movie/{movie_id}/videos")
-//    suspend fun getVideosById(
-//        @Path("movie_id") movieId: Int,
-//        @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
-//    ): Response<VideoResponse>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideosById(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
+    ): Response<TrailerResponse>
 
 }

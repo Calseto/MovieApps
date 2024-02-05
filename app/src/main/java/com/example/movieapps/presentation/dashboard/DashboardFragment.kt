@@ -41,17 +41,11 @@ class DashboardFragment:BaseFragment<FragmentMovieSelectionBinding>() {
             val genres = it.genres
             if (genres != null){
                 setDashboardMovieRv(genres)
-                getAllMovieByGenre(it.genres)
             }
-            else{
-
-            }
-            observeAllMovie()
         }
     }
 
     private fun observeAllMovie(){
-
         viewModel.movieList.forEachIndexed{index, liveData ->
             liveData.observe(viewLifecycleOwner) {
                 updateDashBoardMovieRv(index, it.results)
@@ -76,6 +70,8 @@ class DashboardFragment:BaseFragment<FragmentMovieSelectionBinding>() {
             findNavController().navigate(action,bundle)
         }
         binding.rvMovieDashboard.adapter  = adapter
+        getAllMovieByGenre(list)
+        observeAllMovie()
     }
     private fun updateDashBoardMovieRv(position:Int,list :List<MovieItem?>?){
         adapter.updateMovieRV(position,list)

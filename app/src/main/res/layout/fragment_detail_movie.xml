@@ -22,7 +22,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax">
 
 
                 <ImageView
@@ -152,7 +153,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_square_container">
 
             <include
                 android:id="@+id/details_component_bottom"
@@ -175,7 +177,7 @@
         android:id="@+id/floatingYoutubeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_home"
+        android:src="@drawable/baseline_play_circle_filled_24"
         android:layout_gravity="end|center_vertical"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

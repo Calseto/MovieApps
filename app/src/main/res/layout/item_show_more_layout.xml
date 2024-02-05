@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -48,13 +48,9 @@
             android:layout_marginVertical="5dp"
             android:textColor="#555555" />
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:textColor="#555555"
-            android:textSize="18sp" />
+        <include
+            android:id="@+id/webViewLayout"
+            layout="@layout/fragment_youtube_player"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMovieImages"
@@ -81,4 +77,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

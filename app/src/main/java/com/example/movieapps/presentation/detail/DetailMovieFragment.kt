@@ -27,6 +27,7 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
     }
 
     override fun setupView() {
+        setupTabLayout()
         getMovieDetail()
         observeViewModel()
     }
@@ -35,6 +36,7 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
         if (id!=null) {
             viewModel.fetchMovieDetails(id)
             viewModel.fetchMovieReviews(id)
+            viewModel.fetchMovieTrailer(id)
         }
 
     }
@@ -43,7 +45,6 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.movieDetails.collectLatest {
                     if (it != null) {
-                        setupTabLayout(it)
                         setupViewData(it)
                     }
                 }
@@ -79,10 +80,10 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
         return string
     }
 
-    private fun setupTabLayout(movieDetail:MovieDetailsResponse){
+    private fun setupTabLayout(){
         val viewPager: ViewPager2 = binding.detailsComponentBottom.viewPagerWallet
         val tabLayout: TabLayout = binding.detailsComponentBottom.tabNavWallet
-        val adapter = MovieDetailsTabAdapter(requireActivity(),viewModel, movieDetail)
+        val adapter = MovieDetailsTabAdapter(requireActivity(),viewModel)
         viewPager.adapter = adapter
 
         // Connect TabLayout with ViewPager

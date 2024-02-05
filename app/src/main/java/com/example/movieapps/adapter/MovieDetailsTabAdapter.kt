@@ -11,8 +11,7 @@ import com.example.movieapps.presentation.detail.tabfragment.showmore.ShowMoreFr
 
 class MovieDetailsTabAdapter (
     fragmentActivity: FragmentActivity,
-    private val viewModel:DetailMovieViewodel,
-    private val movieDetailsResponse: MovieDetailsResponse
+    private val viewModel:DetailMovieViewodel
 ) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
         return 2
@@ -21,7 +20,7 @@ class MovieDetailsTabAdapter (
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ReviewFrament(viewModel)
-            1 -> ShowMoreFragment(movieDetailsResponse)
+            1 -> ShowMoreFragment(viewModel)
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

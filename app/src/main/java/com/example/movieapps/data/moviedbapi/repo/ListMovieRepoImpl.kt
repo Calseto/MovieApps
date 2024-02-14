@@ -6,6 +6,7 @@ import com.example.movieapps.data.moviedbapi.response.GenreCollection
 import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
+import com.example.movieapps.data.moviedbapi.response.MovieQueryItem
 import com.example.movieapps.data.moviedbapi.response.ReviewItem
 import com.example.movieapps.data.moviedbapi.response.TrailerResponse
 import com.example.movieapps.utils.UiState
@@ -26,6 +27,8 @@ class ListMovieRepoImpl @Inject constructor(private val listMovieDataSource: Lis
     ): Flow<PagingData<ReviewItem>> =listMovieDataSource.getMoviewReviews(movieId = movieId)
 
     override suspend fun getMovieTrailer(movieId: Int): Flow<UiState<Response<TrailerResponse>>> = listMovieDataSource.getMovieTrailer(movieId)
+    override suspend fun getMovieQueryResult(query: String)
+    : Flow<PagingData<MovieQueryItem>> = listMovieDataSource.getMovieQueryResult(query)
 
 
 }

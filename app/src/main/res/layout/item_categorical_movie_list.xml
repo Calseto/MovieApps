@@ -8,9 +8,11 @@
 
     <TextView
         android:id="@+id/tvCategory"
+        android:layout_marginStart="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_bold"
+        android:textColor="@color/white"
         android:text="Kategori"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_semibold"
+        android:textColor="@color/white"
         android:background="?attr/selectableItemBackground"
         android:text="More >"
         android:textSize="14sp"

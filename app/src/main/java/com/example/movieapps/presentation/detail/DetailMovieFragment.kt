@@ -1,22 +1,27 @@
 package com.example.movieapps.presentation.detail
 
 import android.util.Log
+import android.widget.FrameLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.dompekid.base.BaseFragment
+import com.example.movieapps.R
 import com.example.movieapps.adapter.MovieDetailsTabAdapter
 import com.example.movieapps.data.moviedbapi.response.GenresItem
 import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.databinding.FragmentDetailMovieBinding
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @AndroidEntryPoint
 class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
@@ -30,6 +35,26 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
         setupTabLayout()
         getMovieDetail()
         observeViewModel()
+        setupSwipeRefreshException()
+    }
+
+    private fun setupSwipeRefreshException(){
+        val swipelayout:SwipeRefreshLayout = requireActivity().findViewById(R.id.swipeRefreshLayout)
+        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            Log.d("TAG", verticalOffset.toString())
+            if (verticalOffset < -1) {
+                Log.d("TAG", "setupSwipeRefreshException: bisa ")
+                swipelayout.isEnabled = false
+            } else {
+                swipelayout.isEnabled = true
+            }
+        })
+    }
+    override fun getStatusFramelayout(): Pair<FrameLayout, FrameLayout> {
+        return Pair(
+            binding.loadingFramelayout,
+            binding.errorFramelayout
+        )
     }
     private fun getMovieDetail(){
         val id:Int? = arguments?.getInt("movieId")
@@ -86,7 +111,6 @@ class DetailMovieFragment:BaseFragment<FragmentDetailMovieBinding>() {
         val adapter = MovieDetailsTabAdapter(requireActivity(),viewModel)
         viewPager.adapter = adapter
 
-        // Connect TabLayout with ViewPager
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text="Review"

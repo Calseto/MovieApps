@@ -2,6 +2,7 @@ package com.example.movieapps.presentation.specificmoviecollection
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.dompekid.base.BaseViewModel
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
@@ -32,6 +33,7 @@ class SpecificMovieFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getMovieListByGenreWithPagingUseCase
                 .getMovieListWithPaging(genreId)
+                .cachedIn(viewModelScope)
                 .collectLatest {
                     _movieList2.value=it
                 }

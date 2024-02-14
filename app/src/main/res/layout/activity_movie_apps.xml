@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MovieAppsActivity">
 
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/activityFragmentFrame"
@@ -18,4 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_nav"/>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

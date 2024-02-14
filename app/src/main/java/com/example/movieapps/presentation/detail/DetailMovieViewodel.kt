@@ -59,15 +59,12 @@ class DetailMovieViewodel @Inject constructor(
             getMovieDetailsUseCase.getMovieDetails(movieId).cancellable().collectLatest {
                 when(it){
                     UiState.Loading->{
-                        _loadingState.postValue(true)
                     }
                     is UiState.Success->{
                         _movieDetails.value=it.data.body()
                         cancel()
                     }
                     is UiState.Error->{
-                        _errorMessage.postValue(it.message)
-                        _loadingState.postValue(false)
                     }
                 }
             }
@@ -79,14 +76,11 @@ class DetailMovieViewodel @Inject constructor(
             getMovieTraileruseCase.getMovieTrailer(movieId).collectLatest {
                 when(it){
                     UiState.Loading->{
-                        _loadingState.postValue(true)
                     }
                     is UiState.Success->{
                         _video.value=it.data.body()
                     }
                     is UiState.Error->{
-                        _errorMessage.postValue(it.message)
-                        _loadingState.postValue(false)
                     }
                 }
             }

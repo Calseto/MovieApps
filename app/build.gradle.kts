@@ -48,6 +48,8 @@ android {
 
 dependencies {
 
+    //Shimmer Effect
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
     //Paging 3
     implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
     //Material Design
@@ -70,6 +72,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     // Coroutine Lifecycle Scope
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.google.dagger:hilt-android:2.44")
     kapt ("com.google.dagger:hilt-android-compiler:2.44")
     implementation ("androidx.fragment:fragment-ktx:1.6.2")

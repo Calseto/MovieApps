@@ -6,15 +6,18 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieapps.data.moviedbapi.MovieDbService
+import com.example.movieapps.data.moviedbapi.datasource.pagingsource.MovieQueryPagingSource
 import com.example.movieapps.data.moviedbapi.response.GenreCollection
 import com.example.movieapps.data.moviedbapi.response.MovieDetailsResponse
 import com.example.movieapps.data.moviedbapi.response.MovieItem
 import com.example.movieapps.data.moviedbapi.response.MovieListReqResponse
+import com.example.movieapps.data.moviedbapi.response.MovieQueryItem
 import com.example.movieapps.data.moviedbapi.response.ReviewItem
 import com.example.movieapps.data.moviedbapi.response.TrailerResponse
 import com.example.movieapps.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cache
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -88,6 +91,20 @@ class ListMovieDataSourceImpl @Inject constructor(
                 ReviewPagingSource(movieService, movieId)
             }
         ).flow
+    }
+
+    override suspend fun getMovieQueryResult(
+        query: String
+    ): Flow<PagingData<MovieQueryItem>> {
+            return Pager(
+                config = PagingConfig(
+                    pageSize = 20,
+                    enablePlaceholders = false
+                ),
+                pagingSourceFactory = {
+                    MovieQueryPagingSource(movieService, query)
+                }
+            ).flow
     }
 
     override suspend fun getMovieTrailer(movieId: Int): Flow<UiState<Response<TrailerResponse>>> = flow {

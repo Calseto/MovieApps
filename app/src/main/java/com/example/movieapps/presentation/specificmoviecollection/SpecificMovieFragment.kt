@@ -1,6 +1,7 @@
 package com.example.movieapps.presentation.specificmoviecollection
 
 import android.util.Log
+import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -8,11 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.dompekid.base.BaseFragment
-import com.example.movieapps.adapter.CategoricalMovieAdapter
 import com.example.movieapps.adapter.CategoricalPagingMovieAdapter
 import com.example.movieapps.databinding.FragmentSpecificMovieCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -26,10 +25,21 @@ class SpecificMovieFragment : BaseFragment<FragmentSpecificMovieCollectionBindin
     }
 
     override fun setupView() {
+        setupGenreText()
         createAdapter()
         getMovieListByGenre()
         observeMovieList()
 
+    }
+    override fun getStatusFramelayout(): Pair<FrameLayout, FrameLayout> {
+        return Pair(
+            binding.loadingFramelayout,
+            binding.errorFramelayout
+        )
+    }
+
+    private fun setupGenreText(){
+        binding.textView.text=arguments?.getString("genreName")
     }
 
     private fun createAdapter(){
@@ -62,7 +72,6 @@ class SpecificMovieFragment : BaseFragment<FragmentSpecificMovieCollectionBindin
                 viewModel.movieList2.collectLatest {
                     if (it != null) {
                         adapter.submitData(it)
-
                     }
                 }
             }

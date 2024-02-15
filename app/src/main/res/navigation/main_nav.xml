@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/dashBoardFragment">
+
+    <fragment
+        android:id="@+id/specificMovieFragment"
+        android:name="com.example.movieapps.presentation.specificmoviecollection.SpecificMovieFragment"
+        android:label="SpecificMovieFragment" >
+        <action
+            android:id="@+id/action_specificMovieFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.example.movieapps.presentation.detail.DetailMovieFragment"
+        android:label="DetailMovieFragment" />
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="com.example.movieapps.presentation.DashBoardFragment"
+        android:label="DashBoardFragment" >
+        <action
+            android:id="@+id/action_dashBoardFragment_to_specificMovieFragment"
+            app:destination="@id/specificMovieFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+</navigation>
